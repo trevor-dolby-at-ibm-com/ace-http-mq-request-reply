@@ -7,10 +7,10 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/SyncClient/icons/full/obj16/Sync.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/SyncClient/icons/full/obj30/Sync.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="56,177" URLSpecifier="/SyncClient">
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="61,178" URLSpecifier="/SyncClient">
         <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="791,176">
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="783,175">
         <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
       </nodes>
       <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="302,175" queueName="BACKEND.SHARED.INPUT" transactionMode="no">
@@ -25,7 +25,7 @@
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="654,175" computeExpression="esql://routine/#Sync_Create_Reply_Message.Main">
         <translation xmi:type="utility:ConstantString" string="Create Reply Message"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="433,178" computeExpression="esql://routine/#Sync_Set_CorrelId.Main">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="434,179" computeExpression="esql://routine/#Sync_Set_CorrelId.Main">
         <translation xmi:type="utility:ConstantString" string="Set CorrelId"/>
       </nodes>
       <nodes xmi:type="ComIbmThrow.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="665,271" messageText="No message received">
@@ -47,7 +47,7 @@
       <stickyNote location="409,272" association="FCMComposite_1_10">
         <body xmi:type="utility:ConstantString" string="Sets the MsgId from the MQOutput&#xA;to be the CorrelId for the MQGet."/>
       </stickyNote>
-      <stickyNote location="28,62" association="FCMComposite_1_7">
+      <stickyNote location="104,64" association="FCMComposite_1_7">
         <body xmi:type="utility:ConstantString" string="Sets the request message ReplyToQ &#xA;to the shared reply queue, and creates&#xA;the message body"/>
       </stickyNote>
       <stickyNote location="158,263" association="FCMComposite_1_5">

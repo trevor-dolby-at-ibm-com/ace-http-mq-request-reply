@@ -7,7 +7,7 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/NoCorrelationClient/icons/full/obj16/NoCorrelation.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/NoCorrelationClient/icons/full/obj30/NoCorrelation.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="98,176" URLSpecifier="/NoCorrelationClient">
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="100,177" URLSpecifier="/NoCorrelationClient">
         <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="355,383" computeExpression="esql://routine/#NoCorrelation_Set_Reply_Identifier.Main" computeMode="destinationAndMessage">
@@ -25,7 +25,7 @@
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="357,173" computeExpression="esql://routine/#NoCorrelation_Create_Outbound_Message.Main">
         <translation xmi:type="utility:ConstantString" string="Create Outbound Message"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="96,384" queueName="BACKEND.SHARED.REPLY" messageDomainProperty="JSON">
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="100,383" queueName="BACKEND.SHARED.REPLY" messageDomainProperty="JSON">
         <translation xmi:type="utility:ConstantString" string="MQ Input"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.in"/>

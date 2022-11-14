@@ -17,6 +17,11 @@ CREATE COMPUTE MODULE CorrelId_Create_Outbound_Message
 	BEGIN
 		SET OutputRoot.Properties = InputProperties;
 
+		-- Set the CorrelId of the outgoing message to match the MQInput node. 
+		DECLARE encHost BLOB CAST("script-encoded-hostname" AS BLOB);
+		SET OutputRoot.MQMD.CorrelId = OVERLAY(X'000000000000000000000000000000000000000000000000' PLACING encHost FROM 1);
+		SET OutputRoot.Properties.ReplyIdentifier = OutputRoot.MQMD.CorrelId; -- Properties overwrites CorrelId
+
 		-- Store the HTTP reply identifier in the MsgId of the outgoing message.
 		-- This works because HTTP reply identifiers are the same size as an MQ
 		-- correlation/message ID (by design).
@@ -24,11 +29,6 @@ CREATE COMPUTE MODULE CorrelId_Create_Outbound_Message
 
 		-- Tell the backend flow to send us the MsgId and CorrelId we send it.
 		SET OutputRoot.MQMD.Report = MQRO_PASS_CORREL_ID + MQRO_PASS_MSG_ID;
-		
-		-- Set the CorrelId of the outgoing message to match the MQInput node. 
-		DECLARE encHost BLOB CAST("script-encoded-hostname" AS BLOB);
-		SET OutputRoot.MQMD.CorrelId = OVERLAY(X'000000000000000000000000000000000000000000000000' PLACING encHost FROM 1);
-		SET OutputRoot.Properties.ReplyIdentifier = OutputRoot.MQMD.CorrelId; -- Properties overwrites CorrelId
 
 		-- Tell the backend flow to use the queue for our MQInput node.
 		SET OutputRoot.MQMD.ReplyToQ = 'BACKEND.SHARED.REPLY';

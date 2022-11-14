@@ -9,16 +9,16 @@
       <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="33,133" queueName="BACKEND.SHARED.INPUT" messageDomainProperty="JSON">
         <translation xmi:type="utility:ConstantString" string="MQ Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="654,135">
+      <nodes xmi:type="ComIbmMQReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="652,134">
         <translation xmi:type="utility:ConstantString" string="MQ Reply"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="246,133" computeExpression="esql://routine/#MQFlow_Compute.Main">
-        <translation xmi:type="utility:ConstantString" string="Compute"/>
+        <translation xmi:type="utility:ConstantString" string="Create Reply Message"/>
       </nodes>
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="246,71" destination="localError" pattern="MsgIdToCorrelIdBackend Failure terminal Root:&#xD;&#xA;${Root}">
         <translation xmi:type="utility:ConstantString" string="Trace Failure"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="453,135" destination="localError" pattern="MQFlow reply message:&#xD;&#xA;${Root.JSON}" messageNumber="7512">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="450,134" destination="localError" pattern="MQFlow reply message:&#xD;&#xA;${Root.JSON}" messageNumber="7512">
         <translation xmi:type="utility:ConstantString" string="Trace"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_8" targetNode="FCMComposite_1_7" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.in"/>
@@ -27,6 +27,16 @@
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_17" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_9" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
     </composition>
     <propertyOrganizer/>
-    <stickyBoard/>
+    <stickyBoard>
+      <stickyNote location="33,51" association="FCMComposite_1_1">
+        <body xmi:type="utility:ConstantString" string="Listens on&#xA;BACKEND.SHARED.INPUT"/>
+      </stickyNote>
+      <stickyNote location="427,53" association="FCMComposite_1_4">
+        <body xmi:type="utility:ConstantString" string="Creates reply message body"/>
+      </stickyNote>
+      <stickyNote location="651,53" association="FCMComposite_1_3">
+        <body xmi:type="utility:ConstantString" string="Puts to ReplyToQ with&#xA;correct MsgId and CorrelID"/>
+      </stickyNote>
+    </stickyBoard>
   </eClassifiers>
 </ecore:EPackage>

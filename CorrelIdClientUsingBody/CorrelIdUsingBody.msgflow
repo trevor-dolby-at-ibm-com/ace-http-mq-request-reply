@@ -7,7 +7,7 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/CorrelIdClientUsingBody/icons/full/obj16/CorrelIdUsingBody.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/CorrelIdClientUsingBody/icons/full/obj30/CorrelIdUsingBody.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="98,176" URLSpecifier="/CorrelIdClientUsingBody">
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="101,177" URLSpecifier="/CorrelIdClientUsingBody">
         <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="355,383" computeExpression="esql://routine/#CorrelIdUsingBody_Set_Reply_Identifier.Main" computeMode="destinationAndMessage">
@@ -25,7 +25,7 @@
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="357,173" computeExpression="esql://routine/#CorrelIdUsingBody_Create_Outbound_Message.Main">
         <translation xmi:type="utility:ConstantString" string="Create Outbound Message"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="96,384" queueName="BACKEND.SHARED.REPLY" messageDomainProperty="JSON" matchCorrelId="[iib.user-script-encoded-hostname]11111111">
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="94,383" queueName="BACKEND.SHARED.REPLY" messageDomainProperty="JSON" matchCorrelId="[iib.user-script-encoded-hostname]11111111">
         <translation xmi:type="utility:ConstantString" string="MQ Input"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.in"/>
@@ -36,8 +36,8 @@
     </composition>
     <propertyOrganizer/>
     <stickyBoard>
-      <stickyNote location="87,254" association="FCMComposite_1_8">
-        <body xmi:type="utility:ConstantString" string="Uses fixed queue name and will pick up &#xA;only messages that match the encoded &#xA;hostname CorrelId (which is different from&#xA;the CorrelId used by CorreIdClient)"/>
+      <stickyNote location="97,247" association="FCMComposite_1_8">
+        <body xmi:type="utility:ConstantString" string="Uses fixed queue name and will pick up &#xA;only messages that match the encoded &#xA;hostname CorrelId (which is different&#xA;from the CorrelId used by CorreIdClient)"/>
       </stickyNote>
       <stickyNote location="554,287" association="FCMComposite_1_2">
         <body xmi:type="utility:ConstantString" string="Sets the HTTP reply identifier using the&#xA;body from the response message."/>
