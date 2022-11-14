@@ -2,7 +2,6 @@ apiVersion: appconnect.ibm.com/v1beta1
 kind: Configuration
 metadata:
   name: script-and-remote-mq
-  namespace: ace
 spec:
   type: serverconf
   # ---
