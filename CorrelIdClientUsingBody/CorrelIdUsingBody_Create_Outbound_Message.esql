@@ -17,9 +17,11 @@ CREATE COMPUTE MODULE CorrelIdUsingBody_Create_Outbound_Message
 	BEGIN
 		SET OutputRoot.Properties = InputProperties;
 		
-		-- Set the CorrelId of the outgoing message to match the MQInput node. 
+		-- Set the CorrelId of the outgoing message to match the MQInput node.
+		-- This is a different value from the one used in CorrelIdClient so that
+		-- the flows do not pick up response intended for each other. 
 		DECLARE encHost BLOB CAST("script-encoded-hostname" AS BLOB);
-		SET OutputRoot.MQMD.CorrelId = OVERLAY(X'000000000000000000000000000000000000000000000000' PLACING encHost FROM 1);
+		SET OutputRoot.MQMD.CorrelId = OVERLAY(X'000000000000000000000000000000000000000011111111' PLACING encHost FROM 1);
 		SET OutputRoot.Properties.ReplyIdentifier = OutputRoot.MQMD.CorrelId; -- Properties overwrites CorrelId
 
 		-- Tell the backend flow to send us the CorrelId we send it. The default
@@ -27,9 +29,7 @@ CREATE COMPUTE MODULE CorrelIdUsingBody_Create_Outbound_Message
 		SET OutputRoot.MQMD.Report = MQRO_PASS_CORREL_ID;
 		
 		-- Tell the backend flow to use the queue for our MQInput node.
-		-- Note that this name is different from the CorrelIdClient application as
-		-- otherwise two encoded hostnames would be required.
-		SET OutputRoot.MQMD.ReplyToQ = 'BACKEND.SHARED.REPLY.BODY';
+		SET OutputRoot.MQMD.ReplyToQ = 'BACKEND.SHARED.REPLY';
 		
 		-- Create the body
 		SET OutputRoot.JSON.Data.test = 'CorrelIdClient message';
