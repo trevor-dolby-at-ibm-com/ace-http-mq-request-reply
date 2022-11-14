@@ -1,0 +1,15 @@
+apiVersion: appconnect.ibm.com/v1beta1
+kind: Configuration
+metadata:
+  name: remote-mq
+  namespace: ace
+spec:
+  type: serverconf
+  # ---
+  # remoteDefaultQueueManager: '{ACEMQEndpoint}:RemoteMQ'
+  # StartupScripts:
+  #   EncodedHostScript:
+  #     command: 'export ENCODED_VAR=`echo $HOSTNAME | sha1sum | tr -d "-" | tr -d " "` && echo UserVariables: && /bin/echo -e "  script-encoded-hostname: \\x27$ENCODED_VAR\\x27"'
+  #     readVariablesFromOutput: true
+  contents: >-
+    LS0tCnJlbW90ZURlZmF1bHRRdWV1ZU1hbmFnZXI6ICd7QUNFTVFFbmRwb2ludH06UmVtb3RlTVEnClN0YXJ0dXBTY3JpcHRzOgogIEVuY29kZWRIb3N0U2NyaXB0OgogICAgY29tbWFuZDogJ2V4cG9ydCBFTkNPREVEX1ZBUj1gZWNobyAkSE9TVE5BTUUgfCBzaGExc3VtIHwgdHIgLWQgIi0iIHwgdHIgLWQgIiAiYCAmJiBlY2hvIFVzZXJWYXJpYWJsZXM6ICYmIC9iaW4vZWNobyAtZSAiICBzY3JpcHQtZW5jb2RlZC1ob3N0bmFtZTogXFx4MjckRU5DT0RFRF9WQVJcXHgyNyInIAogICAgcmVhZFZhcmlhYmxlc0Zyb21PdXRwdXQ6IHRydWUK
