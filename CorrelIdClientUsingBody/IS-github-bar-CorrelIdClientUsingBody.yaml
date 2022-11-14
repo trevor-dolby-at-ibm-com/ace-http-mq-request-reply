@@ -16,7 +16,8 @@ spec:
   enableMetrics: true
   license:
     accept: true
-    license: L-KSBM-CJ2KWU
+    # For ACE 12.0.6
+    license: L-APEH-CFZE47
     use: AppConnectEnterpriseProduction
   pod:
     containers:
