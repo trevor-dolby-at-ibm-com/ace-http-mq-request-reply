@@ -1,0 +1,13 @@
+
+
+CREATE COMPUTE MODULE Sync_Set_CorrelId
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot = InputRoot;
+		
+		-- Copy the outbound message ID into the CorrelId for the GET
+		SET OutputRoot.MQMD.CorrelId = InputLocalEnvironment.WrittenDestination.MQ.DestinationData.msgId;
+		
+		RETURN TRUE;
+	END;
+END MODULE;

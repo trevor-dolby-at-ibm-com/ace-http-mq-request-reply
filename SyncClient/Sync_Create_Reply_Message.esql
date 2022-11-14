@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE Sync_Create_Reply_Message
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot.Properties = InputRoot.Properties;
+		
+		-- Make sure curl handles the body correctly
+		SET OutputRoot.Properties.ContentType = 'application/json';
+		SET OutputRoot.JSON = InputRoot.JSON;
+		
+		RETURN TRUE;
+	END;
+
+END MODULE;

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmMQInput.msgnode="ComIbmMQInput.msgnode" xmlns:ComIbmMQOutput.msgnode="ComIbmMQOutput.msgnode" xmlns:ComIbmTrace.msgnode="ComIbmTrace.msgnode" xmlns:ComIbmWSInput.msgnode="ComIbmWSInput.msgnode" xmlns:ComIbmWSReply.msgnode="ComIbmWSReply.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility"
+    nsURI="Sha1Hostname.msgflow" nsPrefix="Sha1Hostname.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="RECTANGLE">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="Sha1Hostname" bundleName="Sha1Hostname" pluginId="Sha1HostnameClient"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Sha1HostnameClient/icons/full/obj16/Sha1Hostname.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Sha1HostnameClient/icons/full/obj30/Sha1Hostname.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="98,176" URLSpecifier="/Sha1HostnameClient">
+        <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="355,383" computeExpression="esql://routine/#Sha1Hostname_Set_Reply_Identifier.Main" computeMode="destinationAndMessage">
+        <translation xmi:type="utility:ConstantString" string="Set Reply Identifier"/>
+      </nodes>
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="657,384">
+        <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="658,174" queueName="BACKEND.SHARED.INPUT">
+        <translation xmi:type="utility:ConstantString" string="MQ Output"/>
+      </nodes>
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="356,314" destination="localError" pattern="Failure Root:&#xD;&#xA;${Root}">
+        <translation xmi:type="utility:ConstantString" string="Trace1"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="357,173" computeExpression="esql://routine/#Sha1Hostname_Create_Outbound_Message.Main">
+        <translation xmi:type="utility:ConstantString" string="Create Outbound Message"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="96,384" queueName="BACKEND.SHARED.REPLY" messageDomainProperty="JSON" matchCorrelId="[iib.user-sha1sum-hostname]">
+        <translation xmi:type="utility:ConstantString" string="MQ Input"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_7" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_7" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_6" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_7" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard>
+      <stickyNote location="102,262" association="FCMComposite_1_8">
+        <body xmi:type="utility:ConstantString" string="Uses fixed queue name and will&#xA;pick up only messages that match&#xA;the encoded hostname CorrelId."/>
+      </stickyNote>
+      <stickyNote location="554,287" association="FCMComposite_1_2">
+        <body xmi:type="utility:ConstantString" string="Sets the HTTP reply identifier to the&#xA;MsgId in the response message."/>
+      </stickyNote>
+      <stickyNote location="243,51" association="FCMComposite_1_7">
+        <body xmi:type="utility:ConstantString" string="Sets the request message MsgId to the HTTP reply &#xA;identifier, the CorrelId to the encoded hostname, and&#xA;the MQMD report option to pass both message and &#xA;correl IDs back in the response message."/>
+      </stickyNote>
+      <stickyNote location="605,51" association="FCMComposite_1_5">
+        <body xmi:type="utility:ConstantString" string="Sends the message to the shared&#xA;input queue for the backend flow."/>
+      </stickyNote>
+    </stickyBoard>
+  </eClassifiers>
+</ecore:EPackage>

@@ -1,0 +1,17 @@
+
+
+CREATE COMPUTE MODULE NoCorrelation_Set_Reply_Identifier
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot.Properties = InputRoot.Properties;
+		
+		-- Make sure curl handles the body correctly
+		SET OutputRoot.Properties.ContentType = 'application/json';
+		SET OutputRoot.JSON = InputRoot.JSON;
+		
+		-- Restore the HTTP reply identifier from the response message.
+		SET OutputLocalEnvironment.Destination.HTTP.RequestIdentifier = InputRoot.MQMD.CorrelId;
+		
+		RETURN TRUE;
+	END;
+END MODULE;

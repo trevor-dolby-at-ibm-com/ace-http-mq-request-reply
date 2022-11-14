@@ -1,0 +1,42 @@
+/* =====================================================================
+script-encoded-hostname is a user variable that is set using a script in
+server.conf.yaml and created at runtime from the HOSTNAME env var:
+
+StartupScripts:
+  EncodedHostScript:
+    command: 'export ENCODED_VAR=`echo $HOSTNAME | sha1sum | tr -d "-" | tr -d " "` && echo UserVariables: && /bin/echo -e "  script-encoded-hostname: \\x27$ENCODED_VAR\\x27"' 
+    readVariablesFromOutput: true
+                             
+Note that there is no default, as it is better that the flow fails to 
+start than run with a fixed correlation ID.                     
+===================================================================== */
+DECLARE "script-encoded-hostname" EXTERNAL CHARACTER;
+
+CREATE COMPUTE MODULE CorrelIdUsingBody_Create_Outbound_Message
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot.Properties = InputProperties;
+		
+		-- Set the CorrelId of the outgoing message to match the MQInput node. 
+		DECLARE encHost BLOB CAST("script-encoded-hostname" AS BLOB);
+		SET OutputRoot.MQMD.CorrelId = OVERLAY(X'000000000000000000000000000000000000000000000000' PLACING encHost FROM 1);
+		SET OutputRoot.Properties.ReplyIdentifier = OutputRoot.MQMD.CorrelId; -- Properties overwrites CorrelId
+
+		-- Tell the backend flow to send us the CorrelId we send it. The default
+		-- is to return the MsgId as the CorrelId.
+		SET OutputRoot.MQMD.Report = MQRO_PASS_CORREL_ID;
+		
+		-- Tell the backend flow to use the queue for our MQInput node.
+		-- Note that this name is different from the CorrelIdClient application as
+		-- otherwise two encoded hostnames would be required.
+		SET OutputRoot.MQMD.ReplyToQ = 'BACKEND.SHARED.REPLY.BODY';
+		
+		-- Create the body
+		SET OutputRoot.JSON.Data.test = 'CorrelIdClient message';
+		
+		-- Store the HTTP reply identifier in the body of the outgoing message.
+		SET OutputRoot.JSON.Data.httpReplyID = BASE64ENCODE(InputLocalEnvironment.Destination.HTTP.RequestIdentifier);
+		
+		RETURN TRUE;
+	END;
+END MODULE;

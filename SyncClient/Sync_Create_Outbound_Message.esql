@@ -1,0 +1,16 @@
+
+
+CREATE COMPUTE MODULE Sync_Create_Outbound_Message
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot.Properties = InputProperties;
+
+		-- Tell the backend flow to use the queue for our MQInput node.
+		SET OutputRoot.MQMD.ReplyToQ = 'BACKEND.SHARED.REPLY';
+		
+		-- Create the body
+		SET OutputRoot.JSON.Data.test = 'SyncClient message';
+		
+		RETURN TRUE;
+	END;
+END MODULE;

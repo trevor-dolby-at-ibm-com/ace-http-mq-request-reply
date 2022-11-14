@@ -1,0 +1,17 @@
+
+
+CREATE COMPUTE MODULE MQFlow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot.Properties = InputProperties;
+		SET OutputRoot.MQMD = InputRoot.MQMD;
+		
+		SET OutputRoot.JSON.Data.originalMessage.MsgId = CAST(InputRoot.MQMD.MsgId AS CHARACTER);
+		SET OutputRoot.JSON.Data.originalMessage.CorrelId = CAST(InputRoot.MQMD.CorrelId AS CHARACTER);
+		SET OutputRoot.JSON.Data.originalMessage.ReplyToQ = InputRoot.MQMD.ReplyToQ;
+		SET OutputRoot.JSON.Data.originalMessage.jsonData = InputRoot.JSON;
+		SET OutputRoot.JSON.Data.backendFlow.application = 'MQBackend';
+		
+		RETURN TRUE;
+	END;
+END MODULE;
