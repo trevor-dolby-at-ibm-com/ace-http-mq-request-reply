@@ -1,0 +1,36 @@
+apiVersion: appconnect.ibm.com/v1beta1
+kind: IntegrationServer
+metadata:
+  name: http-mq-syncclient
+  labels: {}
+spec:
+  adminServerSecure: false
+  barURL: >-
+    https://github.com/trevor-dolby-at-ibm-com/ace-http-mq-request-reply/raw/main/BARfiles/SyncClient.bar
+  configurations:
+    - github-barauth
+    - ace-mq-policy
+    - remote-mq
+  createDashboardUsers: true
+  designerFlowsOperationMode: disabled
+  enableMetrics: true
+  license:
+    accept: true
+    license: L-KSBM-CJ2KWU
+    use: AppConnectEnterpriseProduction
+  pod:
+    containers:
+      runtime:
+        resources:
+          limits:
+            cpu: 300m
+            memory: 350Mi
+          requests:
+            cpu: 300m
+            memory: 300Mi
+  replicas: 2
+  router:
+    timeout: 120s
+  service:
+    endpointType: http
+  version: '12.0'
