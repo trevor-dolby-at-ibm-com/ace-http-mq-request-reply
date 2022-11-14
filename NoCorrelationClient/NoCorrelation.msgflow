@@ -3,11 +3,11 @@
     nsURI="NoCorrelation.msgflow" nsPrefix="NoCorrelation.msgflow">
   <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="RECTANGLE">
     <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
-    <translation xmi:type="utility:TranslatableString" key="NoCorrelation" bundleName="NoCorrelation" pluginId="SimpleClient"/>
-    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/SimpleClient/icons/full/obj16/NoCorrelation.gif"/>
-    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/SimpleClient/icons/full/obj30/NoCorrelation.gif"/>
+    <translation xmi:type="utility:TranslatableString" key="NoCorrelation" bundleName="NoCorrelation" pluginId="NoCorrelationClient"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/NoCorrelationClient/icons/full/obj16/NoCorrelation.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/NoCorrelationClient/icons/full/obj30/NoCorrelation.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="98,176" URLSpecifier="/SimpleClient">
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="98,176" URLSpecifier="/NoCorrelationClient">
         <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="355,383" computeExpression="esql://routine/#NoCorrelation_Set_Reply_Identifier.Main" computeMode="destinationAndMessage">
