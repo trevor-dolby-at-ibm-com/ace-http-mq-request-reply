@@ -1,12 +1,13 @@
 # Sha1HostnameClient
 
-This clients sets the MQ CorrelId field to be a fixed value on request messages and asks
+This client sets the MQ CorrelId field to be a fixed value on the request message and asks
 the back-end service to pass the same CorrelId back again on the reply message so that 
 the MQInput node (which is configured to get only messages with that CorrelId) can receive
 them successfully. 
 
-The HTTP reply identifier is passed as the MsgId in the message, with the back-end service
-also being asked to pass it back again so the reply flow can provide it to the HTTPReply node.
+The HTTP reply identifier is passed as the MsgId in the request message, with the back-end
+service also being asked to pass it back again so the reply flow can provide it to the 
+HTTPReply node.
 
 ![picture](/files/Sha1HostnameClient.png)
 
