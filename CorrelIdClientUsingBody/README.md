@@ -19,6 +19,7 @@ should be uniqe for each container.
 ## Running this client
 
 This client depends on
+- Using ACE 12.0.5 or later
 - A queue manager
 - The [MQBackend](/MQBackend) service from this repo
 - An MQEndpoint policy for the queue manager
