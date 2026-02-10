@@ -28,6 +28,10 @@ CREATE COMPUTE MODULE Sha1HostnameWithTimeout_Create_Outbound_Message
 		-- Create the body
 		SET OutputRoot.JSON.Data.test = 'Sha1HostnameWithTimeoutClient message';
 		
+		-- This would usually happen before the GroupScatter node, but we can
+		-- save data in the Context field to be stored with the group.
+		SET Environment.Destination.GroupScatter.Context = InputRoot.HTTPInputHeader; -- Example; would normally be business data
+		
 		RETURN TRUE;
 	END;
 END MODULE;

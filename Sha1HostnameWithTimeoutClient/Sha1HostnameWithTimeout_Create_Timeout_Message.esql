@@ -4,6 +4,10 @@ CREATE COMPUTE MODULE Sha1HostnameWithTimeout_Create_Timeout_Message
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		SET OutputRoot.JSON.Data.result = 'timeout';
+		
+		-- This would normally be some business or reply data, but we use headers as an example.
+		SET OutputRoot.JSON.Data.demoInputHeaders = InputRoot.ComIbmGroupCompleteNode.Group.Context;
+		
 		RETURN TRUE;
 	END;
 END MODULE;
