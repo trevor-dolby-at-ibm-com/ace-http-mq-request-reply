@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmMQInput.msgnode="ComIbmMQInput.msgnode" xmlns:ComIbmMQOutput.msgnode="ComIbmMQOutput.msgnode" xmlns:ComIbmTrace.msgnode="ComIbmTrace.msgnode" xmlns:ComIbmWSInput.msgnode="ComIbmWSInput.msgnode" xmlns:ComIbmWSReply.msgnode="ComIbmWSReply.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility"
+    nsURI="NoCorrelationWithPrototypeDQ.msgflow" nsPrefix="NoCorrelationWithPrototypeDQ.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="SQUARE">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="NoCorrelationWithPrototypeDQ" bundleName="NoCorrelationWithPrototypeDQ" pluginId="NoCorrelationWithPrototypeDQ"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/NoCorrelationWithPrototypeDQ/icons/full/obj16/NoCorrelationWithPrototypeDQ.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/NoCorrelationWithPrototypeDQ/icons/full/obj30/NoCorrelationWithPrototypeDQ.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="100,177" URLSpecifier="/NoCorrelationClient">
+        <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="506,427" computeExpression="esql://routine/#NoCorrelationWithPrototypeDQ_Set_Reply_Identifier.Main" computeMode="destinationAndMessage">
+        <translation xmi:type="utility:ConstantString" string="Set Reply Identifier"/>
+      </nodes>
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="776,429">
+        <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="658,174" queueName="BACKEND.SHARED.INPUT">
+        <translation xmi:type="utility:ConstantString" string="MQ Output"/>
+      </nodes>
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="412,367" destination="localError" pattern="Failure Root:&#xD;&#xA;${Root}">
+        <translation xmi:type="utility:ConstantString" string="Trace1"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="357,173" computeExpression="esql://routine/#NoCorrelationWithPrototypeDQ_Create_Outbound_Message.Main">
+        <translation xmi:type="utility:ConstantString" string="Create Outbound Message"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="149,427" queueName="[iib.user-mq-dynamic-queue-NoCorrelationTDQueue]" messageDomainProperty="JSON">
+        <translation xmi:type="utility:ConstantString" string="MQ Input"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_7" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_7" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_6" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_7" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard>
+      <stickyNote location="73,283" association="FCMComposite_1_8">
+        <body xmi:type="utility:ConstantString" string="Uses dynamic queue name and will&#xA;pick up any message on the queue."/>
+      </stickyNote>
+      <stickyNote location="554,287" association="FCMComposite_1_2">
+        <body xmi:type="utility:ConstantString" string="Sets the HTTP reply identifier to the&#xA;CorrelId in the response message."/>
+      </stickyNote>
+      <stickyNote location="72,51" association="FCMComposite_1_7">
+        <body xmi:type="utility:ConstantString" string="Sets the request message MsgId to the HTTP reply identifier&#xA;and the reply queue to be the server's dynamic queue."/>
+      </stickyNote>
+      <stickyNote location="605,51" association="FCMComposite_1_5">
+        <body xmi:type="utility:ConstantString" string="Sends the message to the shared&#xA;input queue for the backend flow."/>
+      </stickyNote>
+    </stickyBoard>
+  </eClassifiers>
+</ecore:EPackage>

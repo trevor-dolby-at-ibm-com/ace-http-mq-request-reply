@@ -1,0 +1,21 @@
+DECLARE "mq-dynamic-queue-NoCorrelationTDQueue" EXTERNAL CHARACTER;
+
+CREATE COMPUTE MODULE NoCorrelationWithPrototypeDQ_Create_Outbound_Message
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot.Properties = InputProperties;
+
+		-- Store the HTTP reply identifier in the MsgId of the outgoing message.
+		-- This works because HTTP reply identifiers are the same size as an MQ
+		-- correlation/message ID (by design).
+		SET OutputRoot.MQMD.MsgId = InputLocalEnvironment.Destination.HTTP.RequestIdentifier;
+		
+		-- Tell the backend flow to use the dynamic queue for our MQInput node.
+		SET OutputRoot.MQMD.ReplyToQ = "mq-dynamic-queue-NoCorrelationTDQueue";
+		
+		-- Create the body
+		SET OutputRoot.JSON.Data.test = 'SimpleClient message';
+		
+		RETURN TRUE;
+	END;
+END MODULE;
