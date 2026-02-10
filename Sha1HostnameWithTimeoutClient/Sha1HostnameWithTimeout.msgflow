@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmGroupComplete.msgnode="ComIbmGroupComplete.msgnode" xmlns:ComIbmGroupGather.msgnode="ComIbmGroupGather.msgnode" xmlns:ComIbmGroupScatter.msgnode="ComIbmGroupScatter.msgnode" xmlns:ComIbmMQInput.msgnode="ComIbmMQInput.msgnode" xmlns:ComIbmMQOutput.msgnode="ComIbmMQOutput.msgnode" xmlns:ComIbmTrace.msgnode="ComIbmTrace.msgnode" xmlns:ComIbmWSInput.msgnode="ComIbmWSInput.msgnode"
+    xmlns:ComIbmWSReply.msgnode="ComIbmWSReply.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="Sha1HostnameWithTimeout.msgflow" nsPrefix="Sha1HostnameWithTimeout.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="SQUARE">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="Sha1HostnameWithTimeout" bundleName="Sha1HostnameWithTimeout" pluginId="Sha1HostnameWithTimeoutClient"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Sha1HostnameWithTimeoutClient/icons/full/obj16/Sha1HostnameWithTimeout.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Sha1HostnameWithTimeoutClient/icons/full/obj30/Sha1HostnameWithTimeout.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="80,205" URLSpecifier="/Sha1HostnameWithTimeoutClient">
+        <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="936,400">
+        <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="638,202" queueName="BACKEND.SHARED.INPUT" AddRequestToGroup="true" GroupRequestFolderName="mqBackend">
+        <translation xmi:type="utility:ConstantString" string="MQ Output"/>
+      </nodes>
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="380,470" destination="localError" pattern="Failure Root:&#xD;&#xA;${Root}">
+        <translation xmi:type="utility:ConstantString" string="Trace1"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="401,200" computeExpression="esql://routine/#Sha1HostnameWithTimeout_Create_Outbound_Message.Main">
+        <translation xmi:type="utility:ConstantString" string="Create Outbound Message"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="68,540" queueName="BACKEND.SHARED.REPLY" messageDomainProperty="JSON" matchCorrelId="[iib.user-sha1sum-hostname]">
+        <translation xmi:type="utility:ConstantString" string="MQ Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmGroupScatter.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="219,201" GroupName="Sha1HostnameWithTimeout" GroupTimeout="5.0">
+        <translation xmi:type="utility:ConstantString" string="Group Scatter"/>
+      </nodes>
+      <nodes xmi:type="ComIbmGroupGather.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="297,543" GroupName="Sha1HostnameWithTimeout" UnknownMessageTimeout="5.0">
+        <translation xmi:type="utility:ConstantString" string="Group Gather"/>
+      </nodes>
+      <nodes xmi:type="ComIbmGroupComplete.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="558,399" GroupName="Sha1HostnameWithTimeout">
+        <translation xmi:type="utility:ConstantString" string="Group Complete"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="707,430" computeExpression="esql://routine/#Sha1HostnameWithTimeout_Create_Reply_Message.Main">
+        <translation xmi:type="utility:ConstantString" string="Create Reply Message"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_12" location="701,343" computeExpression="esql://routine/#Sha1HostnameWithTimeout_Create_Timeout_Message.Main">
+        <translation xmi:type="utility:ConstantString" string="Create Timeout Message"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_13" location="187,541" computeExpression="esql://routine/#Sha1HostnameWithTimeout_Fix_reply_ID.Main">
+        <translation xmi:type="utility:ConstantString" string="Fix reply ID"/>
+      </nodes>
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_14" location="417,552" destination="localError" pattern="Unknown message:&#xD;&#xA;${Root}">
+        <translation xmi:type="utility:ConstantString" string="TraceUnknown"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_7" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_7" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_9" targetNode="FCMComposite_1_11" sourceNode="FCMComposite_1_10" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_10" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_11" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_11" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_12" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_12" targetNode="FCMComposite_1_12" sourceNode="FCMComposite_1_10" sourceTerminalName="OutTerminal.timeout" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_13" targetNode="FCMComposite_1_13" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_14" targetNode="FCMComposite_1_9" sourceNode="FCMComposite_1_13" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_15" targetNode="FCMComposite_1_14" sourceNode="FCMComposite_1_9" sourceTerminalName="OutTerminal.unknown" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard>
+      <stickyNote location="31,341" association="FCMComposite_1_8">
+        <body xmi:type="utility:ConstantString" string="Uses a fixed queue name and will&#xA;pick up only messages that match&#xA;the encoded hostname CorrelId."/>
+      </stickyNote>
+      <stickyNote location="21,680" association="FCMComposite_1_13">
+        <body xmi:type="utility:ConstantString" string="The reply message has the required correlation ID in the&#xA;MsgId field, so this node copies the MsgId into the CorrelId&#xA;so the Group Gather node can match it to the group."/>
+      </stickyNote>
+      <stickyNote location="107,16" association="FCMComposite_1_7">
+        <body xmi:type="utility:ConstantString" string="Sets the CorrelId to the encoded hostname, and the&#xA;MQMD report option to pass both message and &#xA;correl IDs back in the response message. The Group&#xA;nodes will handle restoring the HTTP reply identifier."/>
+      </stickyNote>
+      <stickyNote location="626,15" association="FCMComposite_1_5">
+        <body xmi:type="utility:ConstantString" string="Sends the message to the shared input&#xA;queue for the backend flow, and adds&#xA;it to the group with an MQ-generated&#xA;message ID."/>
+      </stickyNote>
+      <stickyNote location="621,578" association="FCMComposite_1_10">
+        <body xmi:type="utility:ConstantString" string="The completed group has the HTTP&#xA;reply identifier restored automatically.&#xA;&#xA;It will also propagate the received reply&#xA;if it arrived in time, and will otherwise &#xA;trigger the Timeout terminal to allow&#xA;for timeout processing in the flow."/>
+      </stickyNote>
+    </stickyBoard>
+  </eClassifiers>
+</ecore:EPackage>

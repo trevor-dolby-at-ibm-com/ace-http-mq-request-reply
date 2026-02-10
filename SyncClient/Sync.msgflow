@@ -28,7 +28,7 @@
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="434,179" computeExpression="esql://routine/#Sync_Set_CorrelId.Main">
         <translation xmi:type="utility:ConstantString" string="Set CorrelId"/>
       </nodes>
-      <nodes xmi:type="ComIbmThrow.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="665,271" messageText="No message received">
+      <nodes xmi:type="ComIbmThrow.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="706,261" messageText="No message received">
         <translation xmi:type="utility:ConstantString" string="Throw"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_7" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
@@ -41,16 +41,16 @@
     </composition>
     <propertyOrganizer/>
     <stickyBoard>
-      <stickyNote location="471,63" association="FCMComposite_1_4">
+      <stickyNote location="533,7" association="FCMComposite_1_4">
         <body xmi:type="utility:ConstantString" string="Uses fixed queue name and will&#xA;pick up the message by CorrelId.&#xA;This node is also doing the GET &#xA;outside the flow transaction."/>
       </stickyNote>
-      <stickyNote location="409,272" association="FCMComposite_1_10">
+      <stickyNote location="402,337" association="FCMComposite_1_10">
         <body xmi:type="utility:ConstantString" string="Sets the MsgId from the MQOutput&#xA;to be the CorrelId for the MQGet."/>
       </stickyNote>
-      <stickyNote location="104,64" association="FCMComposite_1_7">
+      <stickyNote location="66,27" association="FCMComposite_1_7">
         <body xmi:type="utility:ConstantString" string="Sets the request message ReplyToQ &#xA;to the shared reply queue, and creates&#xA;the message body"/>
       </stickyNote>
-      <stickyNote location="158,263" association="FCMComposite_1_5">
+      <stickyNote location="55,287" association="FCMComposite_1_5">
         <body xmi:type="utility:ConstantString" string="Sends the message to the shared&#xA;input queue for the backend flow&#xA;outisde the flow transaction."/>
       </stickyNote>
     </stickyBoard>

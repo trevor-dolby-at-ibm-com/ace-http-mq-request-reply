@@ -1,0 +1,9 @@
+
+
+CREATE COMPUTE MODULE Sha1HostnameWithTimeout_Create_Timeout_Message
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot.JSON.Data.result = 'timeout';
+		RETURN TRUE;
+	END;
+END MODULE;

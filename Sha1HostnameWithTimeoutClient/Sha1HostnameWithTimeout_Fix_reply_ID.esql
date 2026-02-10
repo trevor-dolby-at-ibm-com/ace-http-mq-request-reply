@@ -1,0 +1,18 @@
+
+
+CREATE COMPUTE MODULE Sha1HostnameWithTimeout_Fix_reply_ID
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot = InputRoot;
+		-- The reply message has the MsgId set to the original message ID (which is used
+		-- by the Group nodes to find the right group) and has the CorrelId set to the
+		-- SHA-1 hostname hash (so the message can be read by the right server).
+		-- 
+		-- To allow the GroupGather node to find the right group, we put the MsgId into
+		-- the CorrelId and ReplyIdentifier fields to make sure it can find it.
+		SET OutputRoot.MQMD.CorrelId = InputRoot.MQMD.MsgId;
+		SET OutputRoot.Properties.ReplyIdentifier = InputRoot.MQMD.MsgId;
+		RETURN TRUE;
+	END;
+
+END MODULE;
