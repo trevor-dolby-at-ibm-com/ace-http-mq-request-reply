@@ -1,6 +1,6 @@
-# NoCorrelationWithPrototypeDQClient
+# NoCorrelationWithPrototypeDQClient (prototype!)
 
-** Warning! This is prototype code and not to be used in production! **
+**Warning! This is prototype code and not to be used in production!**
 
 This client sends messages to the MQBackend service without any correlation ID being set, but
 does set the ReplyToQ to a dynamic queue created by the server so the replies will be received
