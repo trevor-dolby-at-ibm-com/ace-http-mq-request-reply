@@ -10,6 +10,7 @@ CREATE COMPUTE MODULE OutboundFixupFlow_CreateMatchMessage
 		SET OutputRoot.MQMD.ReplyToQMgr = Environment.Variables.MQMD.ReplyToQMgr;
 		SET OutputRoot.MQMD.ReplyToQ = Environment.Variables.MQMD.ReplyToQ;
 		
+		-- Note lower-case "m" msgId
 		SET OutputRoot.MQMD.CorrelId = InputLocalEnvironment.WrittenDestination.MQ.DestinationData.msgId;
 		SET OutputRoot.Properties.ReplyIdentifier = InputLocalEnvironment.WrittenDestination.MQ.DestinationData.msgId;
 		
