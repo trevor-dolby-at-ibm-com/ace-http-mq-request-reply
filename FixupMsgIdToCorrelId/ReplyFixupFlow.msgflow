@@ -1,42 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmMQGet.msgnode="ComIbmMQGet.msgnode" xmlns:ComIbmMQInput.msgnode="ComIbmMQInput.msgnode" xmlns:ComIbmMQOutput.msgnode="ComIbmMQOutput.msgnode" xmlns:ComIbmTrace.msgnode="ComIbmTrace.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="ReplyFixupFlow.msgflow" nsPrefix="ReplyFixupFlow.msgflow">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmMQGet.msgnode="ComIbmMQGet.msgnode" xmlns:ComIbmMQInput.msgnode="ComIbmMQInput.msgnode" xmlns:ComIbmMQOutput.msgnode="ComIbmMQOutput.msgnode" xmlns:ComIbmThrow.msgnode="ComIbmThrow.msgnode" xmlns:ComIbmTrace.msgnode="ComIbmTrace.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility"
+    nsURI="ReplyFixupFlow.msgflow" nsPrefix="ReplyFixupFlow.msgflow">
   <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="SQUARE">
     <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
     <translation xmi:type="utility:TranslatableString" key="ReplyFixupFlow" bundleName="ReplyFixupFlow" pluginId="FixupMsgIdToCorrelId"/>
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/FixupMsgIdToCorrelId/icons/full/obj16/ReplyFixupFlow.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/FixupMsgIdToCorrelId/icons/full/obj30/ReplyFixupFlow.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="626,87" destination="none" pattern="LE:&#xD;&#xA;${LocalEnvironment}&#xD;&#xA;Root:&#xD;&#xA;${Root}">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="675,136" destination="none" pattern="LE:&#xD;&#xA;${LocalEnvironment}&#xD;&#xA;Root:&#xD;&#xA;${Root}">
         <translation xmi:type="utility:ConstantString" string="TraceMQGet"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQGet.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="478,142" queueName="MATCH.DATA.Q" generateMode="localEnvironment" inputMQMDLocation="InputLocalEnvironment.MatchMQMD" getWithCorrelID="true" outputDataLocation="OutputLocalEnvironment.MatchMessage">
-        <translation xmi:type="utility:ConstantString" string="MQ Get"/>
+      <nodes xmi:type="ComIbmMQGet.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="475,243" queueName="MATCH.DATA.Q" generateMode="localEnvironment" inputMQMDLocation="InputLocalEnvironment.MatchMQMD" getWithCorrelID="true" outputDataLocation="OutputLocalEnvironment.MatchMessage">
+        <translation xmi:type="utility:ConstantString" string="MQ Get match message"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="302,141" computeExpression="esql://routine/#OutboundFixupFlow_SetupMQGetParms.Main" computeMode="destinationAndMessage">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="306,242" computeExpression="esql://routine/#OutboundFixupFlow_SetupMQGetParms.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="SetupMQGetParms"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="67,141" queueName="FIX.SHARED.REPLY">
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="87,243" queueName="FIX.SHARED.REPLY">
         <translation xmi:type="utility:ConstantString" string="FIX.SHARED.REPLY"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="761,138" computeExpression="esql://routine/#ReplyFixupFlow_CreateReply.Main" computeMode="destinationAndMessage">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="846,243" computeExpression="esql://routine/#ReplyFixupFlow_CreateReply.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="CreateReply"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="889,139" destinationMode="list" transactionMode="yes">
-        <translation xmi:type="utility:ConstantString" string="DestinationListMode"/>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="967,243" destinationMode="list" transactionMode="yes">
+        <translation xmi:type="utility:ConstantString" string="MQPutToReplyQueue"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="194,82" destination="none" pattern="Reply fixup flow MQInput&#xD;&#xA;LE:&#xD;&#xA;${LocalEnvironment}&#xD;&#xA;Root:&#xD;&#xA;${Root}">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="215,127" destination="none" pattern="Reply fixup flow MQInput&#xD;&#xA;LE:&#xD;&#xA;${LocalEnvironment}&#xD;&#xA;Root:&#xD;&#xA;${Root}">
         <translation xmi:type="utility:ConstantString" string="TraceMQInput"/>
+      </nodes>
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="662,323" destination="none" pattern="LE:&#xD;&#xA;${LocalEnvironment}&#xD;&#xA;Root:&#xD;&#xA;${Root}">
+        <translation xmi:type="utility:ConstantString" string="TraceNoMessageError"/>
+      </nodes>
+      <nodes xmi:type="ComIbmThrow.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="865,323" messageText="Failed to find match message">
+        <translation xmi:type="utility:ConstantString" string="Throw"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_6" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.warning" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_7" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.noMessage" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_9" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_7" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_8" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_8" targetNode="FCMComposite_1_7" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_7" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_7" targetNode="FCMComposite_1_8" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.noMessage" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_8" targetNode="FCMComposite_1_9" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
     </composition>
     <propertyOrganizer/>
-    <stickyBoard/>
+    <stickyBoard>
+      <stickyNote location="366,85" association="FCMComposite_1_1 FCMComposite_1_4">
+        <body xmi:type="utility:ConstantString" string="Trace nodes left in for &#xA;inspection and debugging&#xA;but switched off by default."/>
+      </stickyNote>
+      <stickyNote location="41,361" association="FCMComposite_1_2">
+        <body xmi:type="utility:ConstantString" string="Reply messages received from&#xA;back-end server with the CorrelId&#xA;set to the random MsgId used for&#xA;the outbound request message."/>
+      </stickyNote>
+      <stickyNote location="377,362" association="FCMComposite_1_6">
+        <body xmi:type="utility:ConstantString" string="MQGet used to retrieve the&#xA;matching message containing&#xA;the original MsgId, CorrelId, &#xA;ReplyToQ, and ReplyToQMgr"/>
+      </stickyNote>
+      <stickyNote location="743,412" association="FCMComposite_1_9">
+        <body xmi:type="utility:ConstantString" string="NoMessage usually means the match&#xA; message expired due to timeout."/>
+      </stickyNote>
+      <stickyNote location="799,85" association="FCMComposite_1_5">
+        <body xmi:type="utility:ConstantString" string="Restore the correct MsgId, CorrelId,&#xA;ReplyToQ, and ReplyToQMgr to send&#xA;the reply back to the correct container&#xA;with the correct correlation info."/>
+      </stickyNote>
+    </stickyBoard>
   </eClassifiers>
 </ecore:EPackage>

@@ -8,6 +8,7 @@ CREATE COMPUTE MODULE ReplyFixupFlow_CreateReply
 		SET OutputRoot.MQMD.MsgId = InputLocalEnvironment.MatchMessage.MQMD.MsgId;
 
 		SET OutputRoot.MQMD.CorrelId = InputLocalEnvironment.MatchMessage.BLOB.BLOB;
+		-- This one shouldn't be needed
 		SET OutputRoot.Properties.ReplyIdentifier = InputLocalEnvironment.MatchMessage.BLOB.BLOB;
 		
 		SET OutputLocalEnvironment.Destination.MQ.DestinationData[1].queueName = InputLocalEnvironment.MatchMessage.MQMD.ReplyToQ;

@@ -6,28 +6,28 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/FixupMsgIdToCorrelId/icons/full/obj16/OutboundFixupFlow.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/FixupMsgIdToCorrelId/icons/full/obj30/OutboundFixupFlow.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="528,145" computeExpression="esql://routine/#OutboundFixupFlow_CreateMatchMessage.Main" computeMode="destinationAndMessage">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="813,235" computeExpression="esql://routine/#OutboundFixupFlow_CreateMatchMessage.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="CreateMatchMessage"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="685,48" destination="none" pattern="Outbound fix flow MQPut&#xD;&#xA;LE:&#xD;&#xA;${LocalEnvironment}&#xD;&#xA;Root:&#xD;&#xA;${Root}">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="950,148" destination="none" pattern="Outbound fix flow MQPut&#xD;&#xA;LE:&#xD;&#xA;${LocalEnvironment}&#xD;&#xA;Root:&#xD;&#xA;${Root}">
         <translation xmi:type="utility:ConstantString" string="TraceMQPut"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="790,143" queueName="MATCH.DATA.Q" transactionMode="yes">
-        <translation xmi:type="utility:ConstantString" string="MQ Output"/>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="1061,233" queueName="MATCH.DATA.Q" transactionMode="yes">
+        <translation xmi:type="utility:ConstantString" string="MQPutToMatchQueue"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="-51,140" queueName="BACKEND.SHARED.FIX">
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="93,234" queueName="BACKEND.SHARED.FIX">
         <translation xmi:type="utility:ConstantString" string="BACKEND.SHARED.FIX"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="382,141" destinationMode="list" transactionMode="yes" newMsgId="true">
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="548,235" destinationMode="list" transactionMode="yes" newMsgId="true">
         <translation xmi:type="utility:ConstantString" string="SendToBackend"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="133,140" computeExpression="esql://routine/#OutboundFixupFlow_DeriveBackendQueueName.Main" computeMode="destinationAndMessage">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="299,234" computeExpression="esql://routine/#OutboundFixupFlow_DeriveBackendQueueName.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="DeriveBackendQueueName"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_12" location="91,47" destination="none" pattern="Outbound fix flow MQInput&#xD;&#xA;LE:&#xD;&#xA;${LocalEnvironment}&#xD;&#xA;Root:&#xD;&#xA;${Root}">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_12" location="240,141" destination="none" pattern="Outbound fix flow MQInput&#xD;&#xA;LE:&#xD;&#xA;${LocalEnvironment}&#xD;&#xA;Root:&#xD;&#xA;${Root}">
         <translation xmi:type="utility:ConstantString" string="TraceMQInput"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_13" location="488,45" destination="none" pattern="Outbound fix flow MQPut for backend&#xD;&#xA;LE:&#xD;&#xA;${LocalEnvironment}&#xD;&#xA;Root:&#xD;&#xA;${Root}">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_13" location="694,152" destination="none" pattern="Outbound fix flow MQPut for backend&#xD;&#xA;LE:&#xD;&#xA;${LocalEnvironment}&#xD;&#xA;Root:&#xD;&#xA;${Root}">
         <translation xmi:type="utility:ConstantString" string="TraceMQPut1"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
@@ -39,6 +39,19 @@
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_19" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_13" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
     </composition>
     <propertyOrganizer/>
-    <stickyBoard/>
+    <stickyBoard>
+      <stickyNote location="371,79" association="FCMComposite_1_12 FCMComposite_1_13 FCMComposite_1_3">
+        <body xmi:type="utility:ConstantString" string="Trace nodes left in for &#xA;inspection and debugging&#xA;but switched off by default."/>
+      </stickyNote>
+      <stickyNote location="79,332" association="FCMComposite_1_8">
+        <body xmi:type="utility:ConstantString" string="Receives messages &#xA;intended for a specific&#xA;backend service"/>
+      </stickyNote>
+      <stickyNote location="320,333" association="FCMComposite_1_9 FCMComposite_1_11">
+        <body xmi:type="utility:ConstantString" string="Work out the correct backend queue name and &#xA;send the request to that queue with a new MsgId &#xA;and a blank CorrelId. The service will copy the MsgId&#xA; to the CorrelId field for the reply."/>
+      </stickyNote>
+      <stickyNote location="816,332" association="FCMComposite_1_5 FCMComposite_1_1">
+        <body xmi:type="utility:ConstantString" string="Put the original MsgId, CorrelId, ReplyToQ, and&#xA;ReplyToQMgr into a message on the match queue, &#xA;using the new MsgId as the CorrelId so the match &#xA;message can be found by the reply."/>
+      </stickyNote>
+    </stickyBoard>
   </eClassifiers>
 </ecore:EPackage>

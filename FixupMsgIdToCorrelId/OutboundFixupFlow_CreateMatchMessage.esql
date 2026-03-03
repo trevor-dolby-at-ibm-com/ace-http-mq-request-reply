@@ -12,11 +12,12 @@ CREATE COMPUTE MODULE OutboundFixupFlow_CreateMatchMessage
 		
 		-- Note lower-case "m" msgId
 		SET OutputRoot.MQMD.CorrelId = InputLocalEnvironment.WrittenDestination.MQ.DestinationData.msgId;
+		-- This one shouldn't be needed
 		SET OutputRoot.Properties.ReplyIdentifier = InputLocalEnvironment.WrittenDestination.MQ.DestinationData.msgId;
 		
 		SET OutputRoot.BLOB.BLOB = Environment.Variables.MQMD.CorrelId;
 
-		SET OutputRoot.MQMD.Expiry = 600; -- Sixty seconds
+		SET OutputRoot.MQMD.Expiry = 600; -- Sixty seconds, which will probably need to be changed
 		
 		-- Note that the LocalEnvironment is cleared by this node due to the ComputeMode property.
 		-- Without this, the next MQOutput node would put another message to the backend due to 
