@@ -33,6 +33,14 @@ ReplyToQ, and ReplyToQMgr for the "real" reply back to the original client:
 
 ![picture](/files/fixup-msgid-to-correlid-reply.png)
 
+The [ReplyFixupFlow_SetupMQGetParms](ReplyFixupFlow_SetupMQGetParms.esql) Compute node 
+sets up one value for the MQGet node:
+```
+SET OutputLocalEnvironment.MatchMQMD.CorrelId = InputRoot.MQMD.CorrelId;
+```
+and the MQGet node puts the resulting message in the LocalEnvironment so the relevant
+values can be used to construct the final reply in [CreateReply](ReplyFixupFlow_CreateReply.esql)
+
 Notes:
 - The MQGet node is designed to be able to leave the Message tree untouched and place the
   message data into the LocalEnvironment in order to make this sort of scenario simpler.
@@ -40,6 +48,10 @@ Notes:
   easy to get confused. For example, `SET OutputRoot.MQMD.CorrelId = InputLocalEnvironment.WrittenDestination.MQ.DestinationData.msgId;` 
   in [OutboundFixupFlow_CreateMatchMessage.esql](OutboundFixupFlow_CreateMatchMessage.esql)
   shows `msgId` with a lower-case "m" while the MQMD parser would use upper-case.
+- Expiry for the match messages needs to be set high enough that timeouts shoulw not occur
+  during normal operation. For HTTP-based scenarios, the expiry can be set to the same
+  value as the HTTP Input node timeout because the HTTP flow will not be able to send a
+  response to the client after that point so there is no need to find the match message.
 
 ## Running this application
 

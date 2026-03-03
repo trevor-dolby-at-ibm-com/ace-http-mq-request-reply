@@ -1,6 +1,6 @@
 
 
-CREATE COMPUTE MODULE OutboundFixupFlow_SetupMQGetParms
+CREATE COMPUTE MODULE ReplyFixupFlow_SetupMQGetParms
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		SET OutputRoot = InputRoot;

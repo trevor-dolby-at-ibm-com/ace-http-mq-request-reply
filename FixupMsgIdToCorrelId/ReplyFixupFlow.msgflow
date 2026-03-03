@@ -13,7 +13,7 @@
       <nodes xmi:type="ComIbmMQGet.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="475,243" queueName="MATCH.DATA.Q" generateMode="localEnvironment" inputMQMDLocation="InputLocalEnvironment.MatchMQMD" getWithCorrelID="true" outputDataLocation="OutputLocalEnvironment.MatchMessage">
         <translation xmi:type="utility:ConstantString" string="MQ Get match message"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="306,242" computeExpression="esql://routine/#OutboundFixupFlow_SetupMQGetParms.Main" computeMode="destinationAndMessage">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="306,242" computeExpression="esql://routine/#ReplyFixupFlow_SetupMQGetParms.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="SetupMQGetParms"/>
       </nodes>
       <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="87,243" queueName="FIX.SHARED.REPLY">
