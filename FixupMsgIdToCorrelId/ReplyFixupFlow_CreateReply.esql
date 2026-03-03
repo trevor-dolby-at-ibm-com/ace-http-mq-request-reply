@@ -1,0 +1,19 @@
+
+
+CREATE COMPUTE MODULE ReplyFixupFlow_CreateReply
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot = InputRoot;
+		
+		SET OutputRoot.MQMD.MsgId = InputLocalEnvironment.MatchMessage.MQMD.MsgId;
+
+		SET OutputRoot.MQMD.CorrelId = InputLocalEnvironment.MatchMessage.BLOB.BLOB;
+		SET OutputRoot.Properties.ReplyIdentifier = InputLocalEnvironment.MatchMessage.BLOB.BLOB;
+		
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData[1].queueName = InputLocalEnvironment.MatchMessage.MQMD.ReplyToQ;
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData[1].queueManagerName = InputLocalEnvironment.MatchMessage.MQMD.ReplyToQMgr;
+		
+		RETURN TRUE;
+	END;
+
+END MODULE;

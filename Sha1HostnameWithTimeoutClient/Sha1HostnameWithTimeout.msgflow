@@ -13,7 +13,7 @@
       <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="936,400">
         <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="638,202" queueName="BACKEND.SHARED.INPUT" AddRequestToGroup="true" GroupRequestFolderName="mqBackend">
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="638,202" queueName="BACKEND.SHARED.FIX" AddRequestToGroup="true" GroupRequestFolderName="mqBackend">
         <translation xmi:type="utility:ConstantString" string="MQ Output"/>
       </nodes>
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="380,470" destination="localError" pattern="Failure Root:&#xD;&#xA;${Root}">
