@@ -1,34 +1,51 @@
-# Sha1HostnameWithTimeoutClient
+# FixupMsgIdToCorrelId
 
-This client sets the MQ CorrelId field to be a fixed value on the request message and asks
-the back-end service to pass the same CorrelId back again on the reply message so that 
-the MQInput node (which is configured to get only messages with that CorrelId) can receive
-them successfully. 
+This application exists to provide a way to allow container clients such as 
+[Sha1HostnameWithTimeoutClient](../Sha1HostnameWithTimeoutClient) to interact with back-end
+services that only handle the MsgId-to-CorrelId pattern and will not preserve both MsgId
+and CorrelId. This is achieved by putting a pair of flows between the client and the
+service in order to store the relevant metadata on a queue so it can be restored on reply:
 
-This version of the Sha1Hostname client allows for explicit control of timeout behaviour
-in the same way the SyncClient does but without the performance and scaling issues of the
-synchronous flow. The Group nodes autmatically restore the HTTP request identifier (and 
-do the same for SOAP nodes) and also handle timeouts automatically (including sub-second
-timeout values). They also preserve user context for use in the nodes downstream from the
-GroupComplete node.
+![picture](/files/fixup-request-reply.png)
 
-One aspect of using the Group ndoes is that they expect the outbound MsgId to be returned
-to the GroupGather node in the CorrelId field. This application is relying on the CorrelId
-to allow the reply messages to find their way to the correct server, so the value needed
-by the Group nodes is actually in the MsgId field (because the `Create_Outbound_Message` 
-Compute node specified `Report = MQRO_PASS_CORREL_ID + MQRO_PASS_MSG_ID`). This is fixed 
-by the `Fix_reply_ID` Compute node, which copies the received MsgId to the CorrelId field.
+This implementation does not rely on anything other than the service returning the 
+request MsgId as the CorrelId in the reply, and deliberately sets the request CorrelId
+to MQMI_NONE and sets `Report = MQRO_COPY_MSG_ID_TO_CORREL_ID` to demonstrate the lack
+of reliance on anything but the MsgId. There are many different IDs in flight at once 
+and so trace nodes have been left in the flow at helpful points to aid understanding.
 
-![picture](/files/Sha1HostnameWithTimeoutClient.png)
+![picture](/files/fixup-msgid-to-correlid-outbound.png)
 
-## Running this client
+The outbound flow is designed to be service-agnostic, and other input nodes could be 
+added to the flow without needing to change anything else as long as the "real" back-end
+queue name can be determined from the "fix" input queue name. In this example, the "fix"
+queue is called "BACKEND.SHARED.FIX" and the "real" queue is "BACKEND.SHARED.INPUT" and 
+so the conversion is simple. The ReplyToQ is set to be a shared queue that can handle
+any reply from any service as long there is a matching message on the match queue.
 
-This client depends on
+The various MQ nodes are all part of the same transaction to ensure all of the messages
+are put on the correct queues and nothing goes missing. This works because MQ itself 
+assigns the MsgId for the back-end request message before it has been committed, so the
+match message setup code can use it to ensure the reply flow can find the match.
+
+Reply handling uses the match queue message information to set the correct MsgId, CorrelId,
+ReplyToQ, and ReplyToQMgr for the "real" reply back to the original client:
+
+![picture](/files/fixup-msgid-to-correlid-reply.png)
+
+Notes:
+- The MQGet node is designed to be able to leave the Message tree untouched and place the
+  message data into the LocalEnvironment in order to make this sort of scenario simpler.
+- WrittenDestination data fields use different capitalization for MQMD fields, and it's 
+  easy to get confused. For example, `SET OutputRoot.MQMD.CorrelId = InputLocalEnvironment.WrittenDestination.MQ.DestinationData.msgId;` 
+  in [OutboundFixupFlow_CreateMatchMessage.esql](OutboundFixupFlow_CreateMatchMessage.esql)
+  shows `msgId` with a lower-case "m" while the MQMD parser would use upper-case.
+
+## Running this application
+
+This application depends on
 - Using ACE 12.0.6 or later
 - A queue manager
 - The [MQBackend](/MQBackend) service from this repo
 - An MQEndpoint policy for the queue manager
 - A server.conf.yaml stanze setting the policy to be the remote default queue manager
-
-Note that timeouts may occur if the NoCorrelationClient is deployed at the same
-time due to it picking up messages intended for the other clients.

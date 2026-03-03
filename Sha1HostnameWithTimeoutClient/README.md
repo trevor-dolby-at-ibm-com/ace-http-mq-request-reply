@@ -12,7 +12,7 @@ do the same for SOAP nodes) and also handle timeouts automatically (including su
 timeout values). They also preserve user context for use in the nodes downstream from the
 GroupComplete node.
 
-One aspect of using the Group ndoes is that they expect the outbound MsgId to be returned
+One aspect of using the Group nodes is that they expect the outbound MsgId to be returned
 to the GroupGather node in the CorrelId field. This application is relying on the CorrelId
 to allow the reply messages to find their way to the correct server, so the value needed
 by the Group nodes is actually in the MsgId field (because the `Create_Outbound_Message` 
