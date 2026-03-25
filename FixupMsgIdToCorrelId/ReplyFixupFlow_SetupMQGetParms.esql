@@ -1,0 +1,11 @@
+
+
+CREATE COMPUTE MODULE ReplyFixupFlow_SetupMQGetParms
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot = InputRoot;
+		SET OutputLocalEnvironment.MatchMQMD.CorrelId = InputRoot.MQMD.CorrelId;
+		RETURN TRUE;
+	END;
+
+END MODULE;

@@ -18,7 +18,7 @@
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="246,71" destination="localError" pattern="MsgIdToCorrelIdBackend Failure terminal Root:&#xD;&#xA;${Root}">
         <translation xmi:type="utility:ConstantString" string="Trace Failure"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="450,134" destination="localError" pattern="MQFlow reply message:&#xD;&#xA;${Root.JSON}" messageNumber="7512">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="450,134" destination="none" pattern="MQFlow reply message:&#xD;&#xA;${Root.JSON}" messageNumber="7512">
         <translation xmi:type="utility:ConstantString" string="Trace"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_8" targetNode="FCMComposite_1_7" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.in"/>

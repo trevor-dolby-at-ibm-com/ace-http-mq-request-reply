@@ -7,15 +7,12 @@ start than run with a fixed correlation ID.
 ===================================================================== */
 DECLARE "sha1sum-hostname" EXTERNAL CHARACTER;
 
-CREATE COMPUTE MODULE Sha1Hostname_Create_Outbound_Message
+CREATE COMPUTE MODULE Sha1HostnameWithTimeout_Create_Outbound_Message
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		SET OutputRoot.Properties = InputProperties;
 
-		-- Store the HTTP reply identifier in the MsgId of the outgoing message.
-		-- This works because HTTP reply identifiers are the same size as an MQ
-		-- correlation/message ID (by design).
-		SET OutputRoot.MQMD.MsgId = InputLocalEnvironment.Destination.HTTP.RequestIdentifier;
+		-- We let MQ assign the message ID because the Group nodes need a unique message ID per group 
 
 		-- Tell the backend flow to send us the MsgId and CorrelId we send it.
 		SET OutputRoot.MQMD.Report = MQRO_PASS_CORREL_ID + MQRO_PASS_MSG_ID;
@@ -29,7 +26,11 @@ CREATE COMPUTE MODULE Sha1Hostname_Create_Outbound_Message
 		SET OutputRoot.MQMD.ReplyToQ = 'BACKEND.SHARED.REPLY';
 		
 		-- Create the body
-		SET OutputRoot.JSON.Data.test = 'Sha1HostnameClient message';
+		SET OutputRoot.JSON.Data.test = 'Sha1HostnameWithTimeoutClient message';
+		
+		-- This would usually happen before the GroupScatter node, but we can
+		-- save data in the Context field to be stored with the group.
+		SET Environment.Destination.GroupScatter.Context = InputRoot.HTTPInputHeader; -- Example; would normally be business data
 		
 		RETURN TRUE;
 	END;

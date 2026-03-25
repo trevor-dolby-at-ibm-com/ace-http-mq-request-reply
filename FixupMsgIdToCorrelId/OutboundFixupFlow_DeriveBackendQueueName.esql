@@ -1,0 +1,22 @@
+
+
+CREATE COMPUTE MODULE OutboundFixupFlow_DeriveBackendQueueName
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot = InputRoot;
+		SET Environment.Variables.MQMD = InputRoot.MQMD; -- Need message ID and correl ID later
+		
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData[1].queueName = REPLACE(InputRoot.MQMD.SourceQueue, 'FIX', 'INPUT');
+		
+		-- Break report options just to show how this flow handles the problem
+		SET OutputRoot.MQMD.Report = MQRO_COPY_MSG_ID_TO_CORREL_ID;
+		SET OutputRoot.MQMD.CorrelId = MQMI_NONE;
+		SET OutputRoot.Properties.ReplyIdentifier = MQMI_NONE;
+
+		-- Tell the backend flow to use the queue for our MQInput node.
+		SET OutputRoot.MQMD.ReplyToQ = 'FIX.SHARED.REPLY';
+		
+		RETURN TRUE;
+	END;
+
+END MODULE;

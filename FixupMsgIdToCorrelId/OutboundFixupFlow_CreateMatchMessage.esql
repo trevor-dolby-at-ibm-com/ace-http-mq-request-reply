@@ -1,0 +1,28 @@
+
+
+CREATE COMPUTE MODULE OutboundFixupFlow_CreateMatchMessage
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot.Properties = InputProperties;
+		
+		SET OutputRoot.MQMD.MsgId = Environment.Variables.MQMD.MsgId;
+
+		SET OutputRoot.MQMD.ReplyToQMgr = Environment.Variables.MQMD.ReplyToQMgr;
+		SET OutputRoot.MQMD.ReplyToQ = Environment.Variables.MQMD.ReplyToQ;
+		
+		-- Note lower-case "m" msgId
+		SET OutputRoot.MQMD.CorrelId = InputLocalEnvironment.WrittenDestination.MQ.DestinationData.msgId;
+		-- This one shouldn't be needed
+		SET OutputRoot.Properties.ReplyIdentifier = InputLocalEnvironment.WrittenDestination.MQ.DestinationData.msgId;
+		
+		SET OutputRoot.BLOB.BLOB = Environment.Variables.MQMD.CorrelId;
+
+		SET OutputRoot.MQMD.Expiry = 600; -- Sixty seconds, which will probably need to be changed
+		
+		-- Note that the LocalEnvironment is cleared by this node due to the ComputeMode property.
+		-- Without this, the next MQOutput node would put another message to the backend due to 
+		-- the destination data.
+		RETURN TRUE;
+	END;
+
+END MODULE;

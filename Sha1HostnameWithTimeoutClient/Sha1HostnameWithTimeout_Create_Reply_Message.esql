@@ -1,0 +1,16 @@
+
+
+CREATE COMPUTE MODULE Sha1HostnameWithTimeout_Create_Reply_Message
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- No need to set the HTTP RequestIdentifier: the GroupComplete node will have done that for us
+
+		-- Copy the actual reply from the group
+		SET OutputRoot.JSON.Data = InputRoot.ComIbmGroupCompleteNode.Group.Replies.mqBackend.Reply.Root.JSON.Data;
+		-- This would normally be some business or reply data, but we use headers as an example.
+		SET OutputRoot.JSON.Data.demoInputHeaders = InputRoot.ComIbmGroupCompleteNode.Group.Context;
+		
+		RETURN TRUE;
+	END;
+
+END MODULE;
